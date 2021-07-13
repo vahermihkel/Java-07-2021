@@ -1,95 +1,77 @@
 package ee.mihkel;
 
-import java.util.*;
+import java.util.Scanner;
 
-// pangas konto class
-// public int pangajääk;
+public abstract class Animal implements ProjectObject {
+    private int price;
+    private int age;
+    private String name;
+    private boolean isSold;
 
-// -1000000
-// MAINIS - konto.pangajääk = +1000000;
+    public Animal(int price, int age, String name, boolean isSold) {
+        this.price = price;
+        this.age = age;
+        this.name = name;
+        this.isSold = isSold;
+    }
 
-// kui keeran kinni ehk teen muutuja private-ks, siis enam otse ligi ei pääse
-// ja see sätestab tingimused kuidas ma seda muudan
+    public Animal(int price, int age, String name) {
+        this.price = price;
+        this.age = age;
+        this.name = name;
+        this.isSold = false;
+    }
 
-// -1000000
-// lisaPanka(1000)
-// võtaPangast(10000)
+    //    parem klõps - generate - getter and setter
+    public int getPrice() {
+        return price;
+    }
 
-public class Animal {
-    private int price; // 12312
-    private int age; // number
-    private String name; // "asdasda" sõna
-    private boolean isPuppy; // true või false
-    private boolean isSold; // 0 või 1, "y" või "no", aga siis on ka kolmas valik
-    private int birthYear; // 12312 int
-    private AnimalType animalType; // AnimalType enumi sees olevad muutujad, saab välja kutsuda vaid AnimalType.MUUTUJA
-    private List<Animal> children = new ArrayList<>(); // [Animal{}, Animal{}]
-//    List<Animal> children ------ null    <----- siia ei saa juurde lisada elemente
-//    List<Animal> children = new ArrayList<>() ----- []   <----- siia saab juurde lisada elemente
+    public void setPrice(int price) {
+        this.price = price;
+    }
 
+    public int getAge() {
+        return age;
+    }
 
-//    constructor, sulgude sees antakse väärtusi kui see klass luuakse
-    public Animal(int _price, int _age, String _name, boolean _isPuppy, boolean _isSold, AnimalType _animalType) {
-        this.price = _price;
-        this.age = _age;
-        this.name = _name;
-        this.isPuppy = _isPuppy;
-        this.isSold = _isSold;
-        Calendar calendar = new GregorianCalendar();
-        int year = calendar.get(Calendar.YEAR);
-        this.birthYear = year - _age;
-        this.animalType = _animalType;
+    public void increaseAgeByOne() {
+        this.age++;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isSold() {
+        return isSold;
     }
 
     public void changeToSold() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Kas on vajalikud dokumendid esitatud?");
-        String input = scanner.nextLine();
-        if (input.equals("jah")) {
-            this.isSold = true;
-            System.out.println("Müüdud!");
-        } else {
-            System.out.println("Ei saa dokumentideta müüa!");
+        boolean correctAnswer = false;
+//        aktiveerisin kogu koodi, menüüst ülal "Code", "surround with", 3.while
+        while (!correctAnswer) {
+            System.out.println("Kas on vajalikud dokumendid esitatud? y/n");
+            String input = scanner.nextLine();
+            if (input.equals("y")) {
+                this.isSold = true;
+                System.out.println("Müüdud!");
+                correctAnswer = true;
+            } else if (input.equals("n")) {
+                System.out.println("Ei saa dokumentideta müüa!");
+                correctAnswer = true;
+            } else {
+                System.out.println("Palun sisesta y või n!");
+            }
         }
-    }
-
-    public void increaseAge() {
-        this.age++;
-        if (this.age > 0) {
-            this.isPuppy = false;
-        }
-    }
-
-    public void changePrice(int newPrice) {
-        this.price = newPrice;
-    }
-
-    public int getPrice() {
-        return this.price;
-    }
-
-    public List<Animal> getChildren() {
-        return children;
-    }
-
-    public void addChild(Animal child) {
-        if (this.isPuppy) {
-            System.out.println("Tegemist on kutsikaga, lapsi lisada ei saa!");
-        } else {
-            this.children.add(child);
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "Animal{" +
-                "price=" + price +
-                ", age=" + age +
-                ", name='" + name + '\'' +
-                ", isPuppy=" + isPuppy +
-                ", isSold=" + isSold +
-                ", birthYear=" + birthYear +
-                ", animalType=" + animalType +
-                '}';
     }
 }
