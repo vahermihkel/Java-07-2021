@@ -1,4 +1,4 @@
-package ee.mihkel;
+    package ee.mihkel;
 
 import java.util.Scanner;
 

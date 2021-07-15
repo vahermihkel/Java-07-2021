@@ -68,19 +68,27 @@ public class Mammal extends Animal {
             Scanner scanner = new Scanner(System.in);
             String childName = null;
             while (childName == null) {
-                System.out.println("Ütle lapse number millist soovid: ");
-                String input = scanner.nextLine();
-                try {
-                    int i = Integer.parseInt(input);
-                    childName = children.get(i-1).getName();
-                    System.out.println("Valisid lapse: " + childName);
-                } catch (NumberFormatException e) {
-                    System.out.println("Error: Valisid numbri asemel tähe!");
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Error: Valisid vale numbri!");
-                }
+                childName = getChildName(scanner, childName);
             }
+            System.out.println("Child printed");
         }
+    }
+
+    private String getChildName(Scanner scanner, String childName) {
+        System.out.println("Ütle lapse number millist soovid: ");
+        String input = scanner.nextLine();
+        try {
+            int i = Integer.parseInt(input);
+            //[Object,Object,Object,Object,Object]
+            childName = children.get(i-1).getName();
+            System.out.println("Valisid lapse: " + childName);
+        } catch (NumberFormatException e) {
+            // LOG.error(" kasutajal jäi puudu see ")
+            System.out.println("Error: Valisid numbri asemel tähe!");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Error: Valisid vale numbri!");
+        }
+        return childName;
     }
 
     public void addChild(Mammal child) {
@@ -91,7 +99,11 @@ public class Mammal extends Animal {
         }
     }
 
-//    kui toStringi ei ole, siis prindib mälukoha
+    public MammalType getMammalType() {
+        return mammalType;
+    }
+
+    //    kui toStringi ei ole, siis prindib mälukoha
     @Override
     public String toString() {
         return "Mammal{" +
@@ -102,6 +114,7 @@ public class Mammal extends Animal {
                 ", isSold=" + isSold() +
                 ", birthYear=" + birthYear +
                 ", animalType=" + mammalType +
+                ", children=" + children +
                 '}';
     }
 }

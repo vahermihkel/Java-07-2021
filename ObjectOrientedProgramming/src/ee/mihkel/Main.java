@@ -15,72 +15,91 @@ public class Main {
 	    Mammal kass = new Mammal( 70, 2, "Miisu", false, MammalType.KASS);
         Mammal koer = new Mammal(80, 0, "Muri", true,  MammalType.KOER);
         Mammal tiiger = new Mammal(140, 5, "King", false,  MammalType.TIIGER);
+        Mammal tiiger2 = new Mammal(140, 5, "King", false,  MammalType.TIIGER);
         Mammal rott = new Mammal(10, 1, "Sipsi", false, true, MammalType.ROTT);
 
-        rott.addChild(new Mammal(2,0,"Sipsi II",true,false, MammalType.ROTT));
-        rott.addChild(new Mammal(2,0,"Sapsu",true,false, MammalType.ROTT));
-        rott.addChild(new Mammal(2,0,"Micky",true,false, MammalType.ROTT));
-        rott.addChild(new Mammal(2,0,"Minni",true,false, MammalType.ROTT));
-        rott.addChild(new Mammal(2,0,"Mootorrattur hiir",true,false, MammalType.ROTT));
+        MainController.addChildrenToMammal(rott);
+        MainController.addChildrenToMammal(kass);
+//
+//        rott.printOneChild();
 
-        rott.printOneChild();
+//        MainController.calculateObjectSum(koer,kass);
 
-        koer.changeToSold(); // siin on void, kuna pole vasakule poole muutujasse midagi panna
-        kass.changeToSold();
-        kass.increaseAge();
-        koer.increaseAge();
-
-        int koerPrice = koer.getPrice(); // siin on mingi tagastus (funktsiooni sees on return), mis pannakse vasakule
-        int kassPrice = kass.getPrice();
-
-//        keerasin Private-ks kõik muutujad, seega ei saa neile otse ligi
-//        kass.price = 1312312312;
-//        int totalPrice = kass.price + koer.price;
-        int totalPrice = koerPrice + kassPrice;
-        System.out.println("Ostja koguhind oli: " + totalPrice);
-//        System.out.println("Ostja koguhind oli: " + totalPrice);
-//        System.out.printf("Ostja koguhind oli %d %s", totalPrice, " eurot");
-//        System.out.printf("Ostja koguhind oli %d %s", 23, " dollarit");
-
-        rott.setPrice(20);
-
-        System.out.println(kass);
-        System.out.println(koer);
-        System.out.println(tiiger);
-        System.out.println(rott);
+//        rott.setPrice(20);
 
         Bird papagoi = new Bird(45,1, "Praagu", BirdColor.RED_YELLOW);
         Bird ookull = new Bird(55,10, "Luigi", BirdColor.BROWN);
         Bird tihane = new Bird(40,1, "Tihha", BirdColor.BLUE_YELLOW);
         Bird leevike = new Bird(50,2, "Leevi", BirdColor.RED);
 
-        System.out.println(papagoi);
-        System.out.println(ookull);
-        System.out.println(tihane);
-        System.out.println(leevike);
+//        try {
+//            leevike.increaseBirdAge();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
 //        pean importima Listi ja ArrayListi java.util-st
         List<Animal> koikLoomad = new ArrayList<>();
-        koikLoomad.add(kass);
-        koikLoomad.add(koer);
-        koikLoomad.add(tiiger);
-        koikLoomad.add(rott);
-        koikLoomad.add(papagoi);
-        koikLoomad.add(ookull);
-        koikLoomad.add(tihane);
-        koikLoomad.add(leevike);
+//        koikLoomad.add(kass);
+//        koikLoomad.add(koer);
+//        koikLoomad.add(tiiger);
+//        koikLoomad.add(rott);
+//        koikLoomad.add(papagoi);
+//        koikLoomad.add(ookull);
+//        koikLoomad.add(tihane);
+//        koikLoomad.add(leevike);
+        koikLoomad = Arrays.asList(
+                kass,
+                koer,
+                tiiger,
+                tiiger2,
+                rott,
+                papagoi,
+                ookull,
+                tihane,
+                leevike);
 
-//        foreach + enter
-        int koguSumma = 0;
-        for (Animal loom:koikLoomad) {
-            koguSumma = koguSumma + loom.getPrice();
-//             = 0 + 70 (kass.getPrice())
-//             = 70 + 80 (koer.getPrice())
+        MainController.printObjects(koikLoomad);
+//        MainController.calculateTotalAmount(koikLoomad);
+
+        Reptile krokodill = new Reptile(99,"Gena", "Venemaa");
+        Reptile kilpkonn = new Reptile(150,"Mutant", "Keenia");
+        Reptile sisalik = new Reptile(50,"Sissi", "Brasiilia");
+
+//        MainController.setAndPrintReptileCount(krokodill, kilpkonn, sisalik);
+
+        List<Mammal> koikImetajad = Arrays.asList(
+                kass,
+                koer,
+                tiiger,
+                tiiger2,
+                rott);
+
+        Map<MammalType, Integer> animalsCount = new HashMap<>();
+
+        for (Animal a:koikLoomad) {
+            if (a.getClass().getName().equals("ee.mihkel.Mammal")) {
+                if (animalsCount.containsKey(((Mammal) a).getMammalType())) {
+                    animalsCount.put(((Mammal) a).getMammalType(), animalsCount.get(((Mammal) a).getMammalType())+1);
+                } else {
+                    animalsCount.put(((Mammal) a).getMammalType(), 1);
+                }
+            }
         }
-//        for (Bird lind:koikLinnud) {
-//            koguSumma += lind.getPrice();
-//        }
-        System.out.println("Kõikide loomade ostmiseks kogusumma: " + koguSumma);
+
+        for (Mammal m:koikImetajad) {
+            if (animalsCount.containsKey(m.getMammalType())) {
+                animalsCount.put(m.getMammalType(), animalsCount.get(m.getMammalType())+1);
+            } else {
+                animalsCount.put(m.getMammalType(), 1);
+            }
+        }
+
+//        animalsCount.entrySet().forEach(entry -> {
+//            System.out.println(entry.getKey() + " " + entry.getValue());
+//        });
+
+        animalsCount.forEach((key, value) -> System.out.println(key + " " + value));
     }
 //    main meetodi lõppedes programm lõpetab töötamise
 }

@@ -1,7 +1,5 @@
 package ee.mihkel;
 
-import java.util.Scanner;
-
 public class Bird extends Animal {
     private BirdColor birdColor;
 
@@ -17,6 +15,13 @@ public class Bird extends Animal {
 
     public void setBirdColor(BirdColor birdColor) {
         this.birdColor = birdColor;
+    }
+
+    public void increaseBirdAge() throws Exception {
+        increaseAgeByOne();
+        if (getAge() > 50) {
+            throw new Exception("Vanus läks linnul üle 50");
+        }
     }
 
     //    parem klõps - generate - toString

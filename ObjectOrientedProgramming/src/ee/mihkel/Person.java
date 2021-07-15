@@ -12,4 +12,15 @@ public class Person implements ProjectObject {
     public String getName() {
         return name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    // method overloading
+    public void setName(String name, boolean nameBackwards) {
+        if (nameBackwards) {
+            this.name = new StringBuilder(name).reverse().toString();
+        }
+    }
 }
