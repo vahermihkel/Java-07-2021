@@ -68,24 +68,27 @@ public class Main {
 
 //        MainController.setAndPrintReptileCount(krokodill, kilpkonn, sisalik);
 
+//        [Object,Object,Object]
         List<Mammal> koikImetajad = Arrays.asList(
                 kass,
                 koer,
                 tiiger,
                 tiiger2,
+                tiiger2,
                 rott);
 
+//        [{Tüüp: 1},{Tüüp2: 7},{Tüüp3: 14}]
         Map<MammalType, Integer> animalsCount = new HashMap<>();
 
-        for (Animal a:koikLoomad) {
-            if (a.getClass().getName().equals("ee.mihkel.Mammal")) {
-                if (animalsCount.containsKey(((Mammal) a).getMammalType())) {
-                    animalsCount.put(((Mammal) a).getMammalType(), animalsCount.get(((Mammal) a).getMammalType())+1);
-                } else {
-                    animalsCount.put(((Mammal) a).getMammalType(), 1);
-                }
-            }
-        }
+//        for (Animal a:koikLoomad) {
+//            if (a.getClass().getName().equals("ee.mihkel.Mammal")) {
+//                if (animalsCount.containsKey(((Mammal) a).getMammalType())) {
+//                    animalsCount.put(((Mammal) a).getMammalType(), animalsCount.get(((Mammal) a).getMammalType())+1);
+//                } else {
+//                    animalsCount.put(((Mammal) a).getMammalType(), 1);
+//                }
+//            }
+//        }
 
         for (Mammal m:koikImetajad) {
             if (animalsCount.containsKey(m.getMammalType())) {
