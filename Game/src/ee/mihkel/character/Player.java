@@ -1,13 +1,26 @@
 package ee.mihkel.character;
 
 import ee.mihkel.World;
+import ee.mihkel.item.Item;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player extends Character {
     private Direction direction;
+    private List<Item> inventory = new ArrayList();
 
     public Player(World world) {
         super('X', world);
         this.direction = Direction.UP;
+    }
+
+    public List<Item> getInventory() {
+        return inventory;
+    }
+
+    public void addToInventory(Item item) {
+        this.inventory.add(item);
     }
 
     public void move(String input, World world) {
@@ -58,5 +71,15 @@ public class Player extends Character {
 //        } else if (input.equals("w")) {
 //            yCoord--;
 //        }
+    }
+
+    public void showInventory() {
+        for (int i = 0; i < inventory.size(); i++) {
+            System.out.println(i+1 + ". " + inventory.get(i).getClass().getName());
+        }
+    }
+
+    public Item getFromInventory(int itemIndex) {
+        return inventory.get(itemIndex-1);
     }
 }
