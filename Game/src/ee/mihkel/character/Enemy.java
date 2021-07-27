@@ -15,4 +15,8 @@ public class Enemy extends Character {
         this.yCoord = rand.nextInt(world.getHeight()-2)+1;
         checkCoordinatesUniqueness(world);
     }
+
+    public void reboostEnemy() {
+        reboost();
+    }
 }

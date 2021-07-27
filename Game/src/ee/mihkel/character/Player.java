@@ -73,13 +73,22 @@ public class Player extends Character {
 //        }
     }
 
+    public boolean isInventoryEmpty() {
+        return this.inventory.isEmpty();
+    }
+
     public void showInventory() {
         for (int i = 0; i < inventory.size(); i++) {
-            System.out.println(i+1 + ". " + inventory.get(i).getClass().getName());
+            System.out.println(i+1 + ". " + inventory.get(i).getClass().getName().substring(15) +
+            ", kasutuskordi alles: " + inventory.get(i).getDurability());
         }
     }
 
     public Item getFromInventory(int itemIndex) {
         return inventory.get(itemIndex-1);
+    }
+
+    public void deleteFromInventory(Item item) {
+        this.inventory.remove(item);
     }
 }

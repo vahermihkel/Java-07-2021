@@ -1,6 +1,7 @@
 package ee.mihkel.item;
 
 import ee.mihkel.World;
+import ee.mihkel.character.Player;
 
 import java.util.Random;
 
@@ -55,5 +56,17 @@ public class Item {
                 ", yCoord=" + yCoord +
                 ", symbol=" + symbol +
                 '}';
+    }
+
+    public void decreaseDurability(Player player) {
+        if (durability == 1) {
+            player.deleteFromInventory(this);
+        } else {
+            this.durability--;
+        }
+    }
+
+    public int getDurability() {
+        return durability;
     }
 }

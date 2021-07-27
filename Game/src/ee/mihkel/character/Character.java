@@ -2,7 +2,6 @@ package ee.mihkel.character;
 
 import ee.mihkel.World;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -12,11 +11,13 @@ public abstract class Character {
     protected int yCoord;
     private final char symbol;
     private boolean isVisible;
+    private int health;
 
     public Character(char symbol, World world) {
         this.symbol = symbol;
         randomiseCoordinates(world);
         this.isVisible = true;
+        this.health = 3;
     }
 
     private void randomiseCoordinates(World world) {
@@ -40,6 +41,8 @@ public abstract class Character {
 //        }
 
         for (Character c: charactersWithoutThis) {
+//          || - laadimisjuhe (ükskõik milline juhe sobib)
+//            && - kokkamisel kõik peavad olemas olema
             if (c.getxCoord() == this.xCoord && c.yCoord == this.yCoord) {
                 randomiseCoordinates(world);
             }
@@ -64,5 +67,17 @@ public abstract class Character {
 
     public void setVisible(boolean visible) {
         isVisible = visible;
+    }
+
+    protected void reboost() {
+        this.health = 3;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void takeHealth() {
+        this.health--;
     }
 }
