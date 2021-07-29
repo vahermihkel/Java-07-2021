@@ -7,8 +7,16 @@ import ee.mihkel.item.Item;
 
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class GameController {
+public abstract class GameController {
+    private static int seconds;
+
+    public static int getSeconds() {
+        return seconds;
+    }
+
     public static void checkIfPlayerCanGetItem(World world, Player player) {
         for (Item i: world.getItems()) {
             if (i.getxCoord() == player.getxCoord() && i.getyCoord() == player.getyCoord()) {
@@ -45,7 +53,7 @@ public class GameController {
                 item = player.getFromInventory(Integer.parseInt(input));
                 item.decreaseDurability(player);
                 System.out.println("Valisid relva: " + item.getClass().getName().substring(15));
-                fightWithEnemy(player, enemy, scanner);
+                fightWithEnemy(player, enemy, scanner, item);
             } catch (NumberFormatException e) {
                 System.out.println("Sisestad numbri asemel vale sümboli, sisesta uuesti!");
             } catch (IndexOutOfBoundsException e) {
@@ -54,20 +62,40 @@ public class GameController {
         }
     }
 
-    private static void fightWithEnemy(Player player, Enemy enemy, Scanner scanner) throws GameOverException {
+    private static void fightWithEnemy(Player player, Enemy enemy, Scanner scanner, Item item) throws GameOverException {
         Random rand = new Random();
-        System.out.println("Võitluse alustamiseks ütle üks number 1-3");
-        int enemyFightNumber = rand.nextInt(3);
-        String input = scanner.nextLine();
-        int playerFightNumber = Integer.parseInt(input);
-        if (enemyFightNumber == playerFightNumber) {
-            enemy.takeHealth();
-        } else {
-            player.takeHealth();
-            if (player.getHealth() == 0) {
-                throw new GameOverException();
+        while (enemy.getHealth() > 0) {
+            System.out.println("Löömiseks ütle üks number 1-3");
+            int enemyFightNumber = rand.nextInt(3)+1;
+            int playerFightNumber = 0;
+            System.out.println(enemyFightNumber);
+            while (playerFightNumber == 0) {
+                try {
+                    String input = scanner.nextLine();
+                    playerFightNumber = Integer.parseInt(input);
+                    if (playerFightNumber < 1  || playerFightNumber > 3) {
+                        System.out.println("Sisestasid liiga suure või väikse numbri, sisesta uuesti!");
+                        playerFightNumber = 0;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Sisestad numbri asemel vale sümboli, sisesta uuesti!");
+                }
+            }
+            if (enemyFightNumber != playerFightNumber) {
+//                enemy.takeHealth();
+                item.hit(enemy);
+                System.out.println("eseme level:" + item.getLevel() + "eseme tüüp: " + item.getItemType());
+                System.out.println("Võtsid vaenlaselt " + item.getStrength() + " elu! Elusid alles: " + enemy.getHealth());
+            } else {
+                player.takeHealth();
+                System.out.println("Kaotasid elu! Elusid alles: " + player.getHealth());
+                if (player.getHealth() == 0) {
+                    throw new GameOverException();
+                }
             }
         }
+        System.out.println("Vaenlane sai surma! Tapetud vaenlase tüüp: " + enemy.getEnemyType());
+        player.addToKilledEnemies(enemy.getEnemyType());
     }
 
     public static void playerAndQuestmasterMet(World world, Player player, Enemy enemy, QuestMaster questMaster) {
@@ -76,11 +104,19 @@ public class GameController {
                 questMaster.isVisible()) {
             questMaster.setVisible(false);
             enemy.randomiseCoordinates(world);
-            enemy.reboostEnemy();
             enemy.setVisible(true);
         } else if (!questMaster.isVisible() &&
                 !(player.getxCoord() == questMaster.getxCoord() && player.getyCoord() == questMaster.getyCoord())) {
             questMaster.setVisible(true);
         }
+    }
+
+    public static void startTimer(Timer timer) {
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                seconds++;
+            }
+        }, 1000, 1000);
     }
 }

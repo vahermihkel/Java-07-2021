@@ -17,7 +17,7 @@ public abstract class Character {
         this.symbol = symbol;
         randomiseCoordinates(world);
         this.isVisible = true;
-        this.health = 3;
+        this.health = 10;
     }
 
     private void randomiseCoordinates(World world) {
@@ -69,8 +69,13 @@ public abstract class Character {
         isVisible = visible;
     }
 
+//    playeri jaoks kui kohtub healeriga
     protected void reboost() {
         this.health = 3;
+    }
+
+    protected void setHealth(int health) {
+        this.health = health;
     }
 
     public int getHealth() {

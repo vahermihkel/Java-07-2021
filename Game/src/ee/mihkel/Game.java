@@ -9,16 +9,17 @@ import ee.mihkel.item.Item;
 import ee.mihkel.item.Sword;
 
 import java.util.Scanner;
+import java.util.Timer;
 
 public class Game {
 
 // X  enemy saab surma ja tema elud pannakse uuesti täis
-//    enemytel on erinevad tüübid erinevate eludega
-//    kui enemy saab surma, siis salvestatakse MAP tüüpi massiivi tema tüüp ja mitu korda
+// X  enemytel on erinevad tüübid erinevate eludega
+// X  kui enemy saab surma, siis salvestatakse MAP tüüpi massiivi tema tüüp ja mitu korda
 //                                          teda on tapetud
-//    itemitel strength kasutusele võtmine - vastavalt tugevusele elude võtmine
-//    ItemType kasutusele võtmine - korrutada Strength läbi ItemType-ga
-//    ItemType paremaks muutumine ehk leveli tõstmine ja kontroll kui on jõudnud mingi levelini
+// X  ItemType kasutusele võtmine - korrutada Strength läbi ItemType-ga
+// X  itemitel strength kasutusele võtmine - vastavalt tugevusele elude võtmine
+// X  ItemType paremaks muutumine ehk leveli tõstmine ja kontroll kui on jõudnud mingi levelini
 //    Salvestada sekundid mitu sekundit mängija elude lõpuni jääb
 //    Item - Transporter, millega saab mittevõidelda, vaid põgeneda
 //    Uus Character nimega Healer, kes on peidetud ehk ilma Symbolita ja ravib juhuslikult
@@ -32,11 +33,14 @@ public class Game {
 
     public static void main(String[] args) {
 	    World world = new World(5,4);
+        Timer timer = new Timer();
+        GameController.startTimer(timer);
 
 	    Player player = new Player(world);
 	    world.addCharacter(player);
         Enemy enemy = new Enemy(world);
         world.addCharacter(enemy);
+        enemy.randomiseCoordinates(world);
         QuestMaster questMaster = new QuestMaster(world);
         world.addCharacter(questMaster);
 
@@ -62,8 +66,12 @@ public class Game {
                 world.printMap();
                 input = scanner.nextLine();
             }
+            timer.cancel();
         } catch (GameOverException e) {
+            timer.cancel();
             System.out.println("SAID SURMA, MÄNG LÄBI!");
+            player.showKilledEnemies();
+            System.out.println("Kokku läks aega: " + GameController.getSeconds() + " sekundit");
         }
 //        if (player health / 1) {
 //            System.out.println("SAID SURMA");

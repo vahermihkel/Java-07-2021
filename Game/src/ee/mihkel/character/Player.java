@@ -4,15 +4,35 @@ import ee.mihkel.World;
 import ee.mihkel.item.Item;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Player extends Character {
     private Direction direction;
     private List<Item> inventory = new ArrayList();
+    private Map<EnemyType, Integer> killedEnemies = new HashMap<>();
 
     public Player(World world) {
         super('X', world);
         this.direction = Direction.UP;
+    }
+
+    public void showKilledEnemies() {
+        if (!this.killedEnemies.isEmpty()) {
+            System.out.println("Tapetud vaenlasi:");
+        } else {
+            System.out.println("Ühtegi vaenlast sa ei tapnud!");
+        }
+        this.killedEnemies.forEach((key, value) -> System.out.println(key + ": " + value));
+    }
+
+    public void addToKilledEnemies(EnemyType enemyType) {
+        if (killedEnemies.containsKey(enemyType)) {
+            this.killedEnemies.put(enemyType,killedEnemies.get(enemyType)+1);
+        } else {
+            this.killedEnemies.put(enemyType,1);
+        }
     }
 
     public List<Item> getInventory() {
