@@ -1,12 +1,13 @@
 package ee.mihkel;
 
 import ee.mihkel.character.Enemy;
+import ee.mihkel.character.Healer;
 import ee.mihkel.character.Player;
 import ee.mihkel.character.QuestMaster;
 import ee.mihkel.item.Dagger;
 import ee.mihkel.item.Hammer;
-import ee.mihkel.item.Item;
 import ee.mihkel.item.Sword;
+import ee.mihkel.item.Transporter;
 
 import java.util.Scanner;
 import java.util.Timer;
@@ -43,6 +44,8 @@ public class Game {
         enemy.randomiseCoordinates(world);
         QuestMaster questMaster = new QuestMaster(world);
         world.addCharacter(questMaster);
+        Healer healer = new Healer(world);
+        world.addCharacter(healer);
 
         Sword sword = new Sword(world);
         world.addItem(sword);
@@ -50,6 +53,8 @@ public class Game {
         world.addItem(hammer);
         Dagger dagger = new Dagger(world);
         world.addItem(dagger);
+        Transporter transporter = new Transporter(world);
+        world.addItem(transporter);
 
         world.printMap();
 
@@ -60,8 +65,9 @@ public class Game {
                 player.move(input, world);
 
                 GameController.checkIfPlayerCanGetItem(world, player);
-                GameController.playerAndEnemyMet(player, enemy, scanner);
+                GameController.playerAndEnemyMet(player, enemy, scanner, world);
                 GameController.playerAndQuestmasterMet(world, player, enemy, questMaster);
+                GameController.playerAndHealerMet(player, healer);
 
                 world.printMap();
                 input = scanner.nextLine();

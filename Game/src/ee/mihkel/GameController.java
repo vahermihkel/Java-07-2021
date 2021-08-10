@@ -1,9 +1,11 @@
 package ee.mihkel;
 
 import ee.mihkel.character.Enemy;
+import ee.mihkel.character.Healer;
 import ee.mihkel.character.Player;
 import ee.mihkel.character.QuestMaster;
 import ee.mihkel.item.Item;
+import ee.mihkel.item.Transporter;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -29,7 +31,7 @@ public abstract class GameController {
         }
     }
 
-    public static void playerAndEnemyMet(Player player, Enemy enemy, Scanner scanner) throws GameOverException {
+    public static void playerAndEnemyMet(Player player, Enemy enemy, Scanner scanner, World world) throws GameOverException {
         if (player.getxCoord() == enemy.getxCoord() && player.getyCoord() == enemy.getyCoord()
                 && enemy.isVisible()) {
             enemy.setVisible(false);
@@ -37,12 +39,12 @@ public abstract class GameController {
             if (player.isInventoryEmpty()) {
                 System.out.println("Sul pole relvi, et võidelda, mine korja!");
             } else {
-                chooseWeapon(player, enemy, scanner);
+                chooseWeapon(player, enemy, scanner, world);
             }
         }
     }
 
-    private static void chooseWeapon(Player player, Enemy enemy, Scanner scanner) throws GameOverException {
+    private static void chooseWeapon(Player player, Enemy enemy, Scanner scanner, World world) throws GameOverException {
         String input;
         System.out.println("Vali millist relva tahad: ");
         player.showInventory();
@@ -53,7 +55,11 @@ public abstract class GameController {
                 item = player.getFromInventory(Integer.parseInt(input));
                 item.decreaseDurability(player);
                 System.out.println("Valisid relva: " + item.getClass().getName().substring(15));
-                fightWithEnemy(player, enemy, scanner, item);
+                if (item.getClass().getName().substring(15).equals("Transporter")) {
+                    player.randomiseCoordinates(world);
+                } else {
+                    fightWithEnemy(player, enemy, scanner, item);
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Sisestad numbri asemel vale sümboli, sisesta uuesti!");
             } catch (IndexOutOfBoundsException e) {
@@ -118,5 +124,12 @@ public abstract class GameController {
                 seconds++;
             }
         }, 1000, 1000);
+    }
+
+    public static void playerAndHealerMet(Player player, Healer healer) {
+        if (player.getxCoord() == healer.getxCoord() && player.getyCoord() == healer.getyCoord()) {
+            healer.reboostPlayer(player);
+            System.out.println("Leidsid ravitseja, kes ravis su elud täis!");
+        }
     }
 }

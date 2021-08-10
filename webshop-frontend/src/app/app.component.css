@@ -1,0 +1,17 @@
+.header {
+    font-size: 26px;
+    font-weight: 600;
+}
+
+#description {
+    font-size: 18px;
+}
+
+div {
+    background-color: aqua;
+}
+
+div:hover {
+    background-color: aquamarine;
+    cursor: pointer;
+}

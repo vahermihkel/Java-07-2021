@@ -20,7 +20,7 @@ public abstract class Character {
         this.health = 10;
     }
 
-    private void randomiseCoordinates(World world) {
+    public void randomiseCoordinates(World world) {
         Random rand = new Random();
         this.xCoord = rand.nextInt(world.getWidth());
         this.yCoord = rand.nextInt(world.getHeight()-2)+1;

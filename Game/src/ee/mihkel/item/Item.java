@@ -98,10 +98,8 @@ public class Item {
                 return ItemType.SILVER;
             case 2:
                 return ItemType.GOLD;
-            case 3:
-                return ItemType.PLATINUM;
             default:
-                return ItemType.BRONZE;
+                return ItemType.PLATINUM;
         }
     }
 

@@ -1,0 +1,31 @@
+<div>{{ toode1pealkiri }}</div>
+<div>{{ toode1hind }}</div>
+<div>{{ toode2pealkiri }}</div>
+<div>{{ toode2hind }}</div>
+
+<div *ngFor="let pealkiri of tootePealkirjad">
+    {{ pealkiri }}
+</div>
+
+<div *ngFor="let hind of tooteHinnad">
+    {{ hind }}
+</div>
+
+<div>{{ toode1 }}</div>
+<div>{{ toode1.pealkiri }}</div>
+<div>{{ toode1.hind }}</div>
+
+<div>{{ toode2 }}</div>
+<div>{{ toode2.pealkiri }}</div>
+<div>{{ toode2.hind }}</div>
+
+<div *ngFor="let toode of tooted">
+    {{ toode.pealkiri }} - {{ toode.hind }}
+</div>
+
+<div *ngFor="let item of items">
+    <div>{{ item.title }}</div>
+    <div>{{ item.price }}</div>
+    <div>{{ item.imgSrc }}</div>
+    <div>{{ item.category }}</div>
+</div>

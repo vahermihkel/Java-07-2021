@@ -10,8 +10,8 @@ import java.util.Map;
 
 public class Player extends Character {
     private Direction direction;
-    private List<Item> inventory = new ArrayList();
-    private Map<EnemyType, Integer> killedEnemies = new HashMap<>();
+    private final List<Item> inventory = new ArrayList<>();
+    private final Map<EnemyType, Integer> killedEnemies = new HashMap<>();
 
     public Player(World world) {
         super('X', world);
