@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Item } from '../models/item.model';
+import { CartService } from '../services/cart.service';
 import { ItemService } from '../services/item.service';
 
 @Component({
@@ -20,11 +22,12 @@ export class HomeComponent implements OnInit {
 
   // tooted = [{pealkiri: "toode1", hind: 6},{pealkiri: "toode2", hind: 8}];
 
-  items: {title: string, imgSrc: string, price: number, category: string}[] = [];
+  items: Item[] = [];
 
   // itemService: ItemService;
 
-  constructor(private itemService: ItemService) { 
+  constructor(private itemService: ItemService,
+    private cartService: CartService) { 
     // this.itemService = _itemService;
   }
 
@@ -33,4 +36,7 @@ export class HomeComponent implements OnInit {
     this.items = this.itemService.itemsInService;
   }
 
+  onAddToCart(item: Item) {
+    this.cartService.cartItems.push(item);
+  }
 }

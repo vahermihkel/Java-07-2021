@@ -2,4 +2,14 @@
 
 <br><br>
 
-<button (click)="onAddNewItem()">Lisa toode</button>
+<form (ngSubmit)="onAddNewItem(form)" #form="ngForm">
+    <label for="">Pealkiri</label><br>
+    <input ngModel name="title" type="text" placeholder="Raamatu pealkiri" required><br>
+    <label for="">Pilt</label><br>
+    <input ngModel name="imgSrc" type="text" placeholder="Raamatu kaanepilt" required><br>
+    <label for="">Hind</label><br>
+    <input ngModel name="price" type="number" placeholder="Raamatu hind" required><br>
+    <label for="">Kategooria</label><br>
+    <input ngModel name="category" type="text" placeholder="Raamatu kategooria" required><br>
+    <button>Lisa toode</button>
+</form>

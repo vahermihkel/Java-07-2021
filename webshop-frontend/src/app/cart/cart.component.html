@@ -1,1 +1,8 @@
-<p>cart works!</p>
+<button (click)="onEmptyCart()">Tühjenda ostukorv</button>
+
+<div *ngFor="let cartItem of cartItems">
+    <div>{{ cartItem.title }}</div>
+    <img src="{{ cartItem.imgSrc }}" alt="">
+    <div>{{ cartItem.price }}</div>
+    <button (click)="onRemoveFromCart(cartItem)">X</button>
+</div>
