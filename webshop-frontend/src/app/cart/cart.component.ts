@@ -13,20 +13,19 @@ export class CartComponent implements OnInit {
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
-    this.cartItems = this.cartService.cartItems;
+    this.cartItems = this.cartService.getCartItems();
   }
 
   onEmptyCart() {
     // this.cartService.cartItems.splice(0);
-    this.cartService.cartItems = [];
-    this.cartItems = this.cartService.cartItems;
+    this.cartService.emptyCart();
+    this.cartItems = this.cartService.getCartItems();
   }
 
   onRemoveFromCart(item: Item) {
     // let index = this.cartService.cartItems.findIndex(cartItem => cartItem.title == _item.title);
-
-    let index = this.cartService.cartItems.indexOf(item);
-    this.cartService.cartItems.splice(index,1);
+    this.cartService.removeFromCart(item);
+    this.cartItems = this.cartService.getCartItems();
   }
 
 }

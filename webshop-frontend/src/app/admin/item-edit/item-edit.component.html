@@ -1,1 +1,11 @@
-<p>item-edit works!</p>
+<form (ngSubmit)="onEditItem(editItemForm)" [formGroup]="editItemForm">
+    <label for="">Pealkiri</label><br>
+    <input formControlName="title" type="text" placeholder="Raamatu pealkiri" required><br>
+    <label for="">Pilt</label><br>
+    <input formControlName="imgSrc" type="text" placeholder="Raamatu kaanepilt" required><br>
+    <label for="">Hind</label><br>
+    <input formControlName="price" type="number" placeholder="Raamatu hind" required><br>
+    <label for="">Kategooria</label><br>
+    <input formControlName="category" type="text" placeholder="Raamatu kategooria" required><br>
+    <button>Muuda toode</button>
+</form>

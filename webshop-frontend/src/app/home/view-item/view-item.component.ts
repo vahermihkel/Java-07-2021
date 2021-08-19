@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Item } from 'src/app/models/item.model';
 import { ItemService } from 'src/app/services/item.service';
 
 @Component({
-  selector: 'app-item-edit',
-  templateUrl: './item-edit.component.html',
-  styleUrls: ['./item-edit.component.css']
+  selector: 'app-view-item',
+  templateUrl: './view-item.component.html',
+  styleUrls: ['./view-item.component.css']
 })
-export class ItemEditComponent implements OnInit {
+export class ViewItemComponent implements OnInit {
   item!: Item;
-  editItemForm!: FormGroup;
 
   constructor(private route: ActivatedRoute,
     private itemService: ItemService) { }
@@ -25,16 +23,6 @@ export class ItemEditComponent implements OnInit {
         this.item = itemFound;
       } 
     } 
-
-    this.editItemForm = new FormGroup({
-      title: new FormControl(this.item.title),
-      price: new FormControl(this.item.price),
-      imgSrc: new FormControl(this.item.imgSrc),
-      category: new FormControl(this.item.category),
-    });
   }
 
-  onEditItem(editItemForm: FormGroup) {
-    
-  }
 }

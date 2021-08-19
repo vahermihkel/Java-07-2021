@@ -39,7 +39,7 @@
 <div *ngFor="let item of items">
     <div>{{ item.title }}</div>
     <div>{{ item.price }}</div>
-    <img src="{{ item.imgSrc }}" alt="">
+    <img routerLink="ese/{{item.title}}" src="{{ item.imgSrc }}" alt="">
     <div>{{ item.category }}</div>
     <button (click)="onAddToCart(item)">Lisa ostukorvi</button>
 </div>

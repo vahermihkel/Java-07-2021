@@ -6,4 +6,19 @@
     <div>{{ item.imgSrc }}</div>
     <div>{{ item.category }}</div>
     <button (click)="onRemoveItem(item)">X</button>
+    <button routerLink="/admin/muuda-ese/{{item.title}}">Muuda</button>
 </div>
+
+<!-- app.routingus vastav url koos muutujaga -->
+<!-- path: "admin/muuda-ese/:itemId" -->
+
+<!-- vaadata kas tuleb URLi -->
+<!-- klikk nupul -->
+
+<!-- item-edit.ts sees võtame vastu -->
+<!-- copy-paste view-item seest. 
+    jälgi et ActivatedRoute oleks imporditud.
+    kasuta juba olemasolevat funktsiooni Service seest getItem() -->
+
+<!-- html sees kuva välja, et näeks kas ikka tuli -->
+<!-- {{item.title}} -->

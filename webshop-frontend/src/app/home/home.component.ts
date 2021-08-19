@@ -33,10 +33,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("olen home componendis");
-    this.items = this.itemService.itemsInService;
+    this.items = this.itemService.getItems();
   }
 
   onAddToCart(item: Item) {
-    this.cartService.cartItems.push(item);
+    this.cartService.addToCart(item);
   }
 }

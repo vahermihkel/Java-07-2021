@@ -10,7 +10,8 @@ import { ItemAddComponent } from './admin/item-add/item-add.component';
 import { ItemListComponent } from './admin/item-list/item-list.component';
 import { ItemEditComponent } from './admin/item-edit/item-edit.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ViewItemComponent } from './home/view-item/view-item.component';
 
 @NgModule({
   declarations: [
@@ -21,12 +22,14 @@ import { FormsModule } from '@angular/forms';
     ItemAddComponent,
     ItemListComponent,
     ItemEditComponent,
-    AdminHomeComponent
+    AdminHomeComponent,
+    ViewItemComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
