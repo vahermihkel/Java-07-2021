@@ -19,6 +19,7 @@ export class ItemService {
   // this.itemService.itemsInService;
   // this.itemService.getItems();
   getItems() {
+    // this.itemsInService.map(item => ({...item, price: item.price.toFixed(2)}))
     return this.itemsInService.slice();
   }
 

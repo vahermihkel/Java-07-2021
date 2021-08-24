@@ -12,6 +12,7 @@ import { ItemEditComponent } from './admin/item-edit/item-edit.component';
 import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ViewItemComponent } from './home/view-item/view-item.component';
+import { ItemPricePipe } from './pipes/item-price.pipe';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ViewItemComponent } from './home/view-item/view-item.component';
     ItemListComponent,
     ItemEditComponent,
     AdminHomeComponent,
-    ViewItemComponent
+    ViewItemComponent,
+    ItemPricePipe
   ],
   imports: [
     BrowserModule,
