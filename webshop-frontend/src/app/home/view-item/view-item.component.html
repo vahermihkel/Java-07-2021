@@ -1,2 +1,4 @@
-<div>{{ item.title }}</div>
-<div>{{ item.price.toFixed(2) }} €</div>
+<div *ngIf="item">
+    <div>{{ item.title }}</div>
+    <div>{{ item.price.toFixed(2) }} €</div>
+</div>

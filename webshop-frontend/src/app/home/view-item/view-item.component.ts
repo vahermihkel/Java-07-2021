@@ -18,10 +18,11 @@ export class ViewItemComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get("itemId");
     console.log(id);
     if (id != null) {
-      let itemFound = this.itemService.getItem(id);
-      if (itemFound != null) {
-        this.item = itemFound;
-      } 
+      this.itemService.getItem(id).subscribe(itemFromDb => {
+        if (itemFromDb != null) {
+          this.item = itemFromDb;
+        } 
+      })
     } 
   }
 

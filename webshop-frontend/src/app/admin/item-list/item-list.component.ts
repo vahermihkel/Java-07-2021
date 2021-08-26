@@ -13,11 +13,16 @@ export class ItemListComponent implements OnInit {
   constructor(private itemService: ItemService) { }
 
   ngOnInit(): void {
-    this.items = this.itemService.getItems();
+    this.itemService.getItems().subscribe(itemsFromDb => {
+      this.items = itemsFromDb;
+    });
   }
 
   onRemoveItem(item: Item) {
-    this.itemService.removeItem(item);
-    this.items = this.itemService.getItems();
+    this.itemService.removeItem(item).subscribe(() => {
+      this.itemService.getItems().subscribe(itemsFromDb => {
+        this.items = itemsFromDb;
+      });
+    });
   }
 }

@@ -14,7 +14,8 @@ export class Item {
         public title: string,
         public imgSrc: string,
         public price: number,
-        public category: string
+        public category: string,
+        public id?: number
     ) {}
 }
 

@@ -20,10 +20,12 @@ export class ItemEditComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get("itemId");
     console.log(id);
     if (id != null) {
-      let itemFound = this.itemService.getItem(id);
-      if (itemFound != null) {
-        this.item = itemFound;
-      } 
+      // let itemFound = this.itemService.getItem(id);
+      this.itemService.getItem(id).subscribe(itemFromDb => {
+        if (itemFromDb != null) {
+          this.item = itemFromDb;
+        } 
+      })
     } 
 
     this.editItemForm = new FormGroup({

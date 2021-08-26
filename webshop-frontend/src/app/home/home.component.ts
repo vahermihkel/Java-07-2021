@@ -33,7 +33,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("olen home componendis");
-    this.items = this.itemService.getItems();
+    this.itemService.getItems().subscribe(itemsFromDb => {
+      this.items = itemsFromDb;
+    });
   }
 
   onAddToCart(item: Item) {
