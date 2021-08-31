@@ -21,8 +21,9 @@ export class ItemAddComponent implements OnInit {
     console.log(form);
     console.log(form.value);
     if (form.valid) {
-      this.itemService.addItem(form.value);
-      form.reset();
+      this.itemService.addItem(form.value).subscribe(()=>{
+        form.reset();
+      });
     } else {
       alert("Jätsid midagi sisestamata! Palun kontrolli");
     }

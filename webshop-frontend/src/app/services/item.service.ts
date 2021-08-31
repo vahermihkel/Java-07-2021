@@ -11,7 +11,7 @@ export class ItemService {
   constructor(public http: HttpClient) { }
 
   addItem(item: Item) {
-    this.http.post("http://localhost:8080/add-item", item).subscribe();
+    return this.http.post("http://localhost:8080/add-item", item);
   }
 
   getItems() {
@@ -24,5 +24,9 @@ export class ItemService {
 
   getItem(id: string) {
     return this.http.get<Item>("http://localhost:8080/view-item/" + id);
+  }
+
+  editItem(item: Item) {
+    return this.http.post("http://localhost:8080/edit-item", item);
   }
 }
