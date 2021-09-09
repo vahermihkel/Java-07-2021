@@ -24,12 +24,13 @@ public class ItemCache {
                     .removalListener(removalNotification -> System.out.println(removalNotification.getCause()))
                     .build(new CacheLoader<>() {
                         @Override
-                        public Item load(Long id) {
-                            return itemService.getItem(id);
+                        public Item load(Long id) throws ExecutionException {
+                            return itemService.getItemFromDatabase(id);
                         }
                     });
 
     public Item getById(Long id) throws ExecutionException {
+        updateCacheIfEmpty(null);
         return itemsCache.get(id);
     }
 
@@ -42,6 +43,19 @@ public class ItemCache {
     }
 
     public List<Item> getAllItems() {
+        updateCacheIfEmpty(null);
         return new ArrayList<>(itemsCache.asMap().values());
     }
+
+    public void updateCacheIfEmpty(Item item) {
+        if (itemsCache.asMap().values().isEmpty()) {
+            itemService.getItemsFromDatabase().forEach(this::update);
+            System.out.println("VÕTAN KUNA ON TÜHI");
+        }
+        if (item != null) {
+            System.out.println("LISAN UUT ESET CACHE'i");
+            update(item);
+        }
+    }
 }
+// int = 0, String = "", char ' ', Item (Objectid) tühi väärtus on null

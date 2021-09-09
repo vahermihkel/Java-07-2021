@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -56,7 +57,7 @@ public class ItemController {
 
     @ApiOperation(value = "View one item")
     @GetMapping(value = "view-item/{id}", produces = {MediaType.TEXT_HTML_VALUE})
-    public Item getItem(@PathVariable Long id) {
+    public Item getItem(@PathVariable Long id) throws ExecutionException {
         return itemService.getItem(id);
     }
 }
